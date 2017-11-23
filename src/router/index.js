@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Movies from '@/components/Movies'
+import MoviesList from '@/components/MoviesList'
+import MovieDetail from '@/components/MovieDetail'
 
 Vue.use(Router)
 
@@ -12,31 +13,35 @@ export default new Router({
     },
     {
       path: '/top',
-      component: Movies,
+      component: MoviesList,
       props: {
-        type: 'top'
+        type: 'top_rated'
       }
     },
     {
       path: '/popular',
-      component: Movies,
+      component: MoviesList,
       props: {
         type: 'popular'
       }
     },
     {
       path: '/upcoming',
-      component: Movies,
+      component: MoviesList,
       props: {
         type: 'upcoming'
       }
     },
     {
       path: '/now-playing',
-      component: Movies,
+      component: MoviesList,
       props: {
-        type: 'now playing'
+        type: 'now_playing'
       }
+    },
+    {
+      path: '/movie/:id',
+      component: MovieDetail
     }
   ]
 })
