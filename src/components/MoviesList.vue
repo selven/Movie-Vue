@@ -1,19 +1,23 @@
 <template>
   <div class="title">
     <h1>{{type}} Movies</h1>
-    <button @click="shuffle">Shuffle</button>
-    Alphabetical:
-    <button @click="sort('title')">ASC</button>
-    <button @click="sort('title', 'desc')">DESC</button>
-    Rating:
-    <button @click="sort('vote_average')">ASC</button>
-    <button @click="sort('vote_average', 'desc')">DESC</button>
+    <div class="options">
+      <button @click="shuffle">Shuffle</button>
+      Alphabetical:
+      <button @click="sort('title')">ASC</button>
+      <button @click="sort('title', 'desc')">DESC</button>
+      Rating:
+      <button @click="sort('vote_average')">ASC</button>
+      <button @click="sort('vote_average', 'desc')">DESC</button>
+    </div>
     <transition-group name="movie-list" tag="ul">
       <li v-for="movie in movies" :key="movie.id">
         <router-link :to="{path: '/movie/' + movie.id}">
-          {{ movie.title }}
+          <div class="image">
+            <img :src="'https://image.tmdb.org/t/p/w154/' + movie.poster_path" alt="" />
+          </div>
+          <span class="name">{{ movie.title }}</span>
         </router-link>
-        <!--<img :src="'https://image.tmdb.org/t/p/w154/' + movie.poster_path" alt="" />-->
       </li>
     </transition-group>
   </div>
@@ -71,13 +75,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h1 {
+    margin: 10px 20px;
+  }
+  .options {
+    
+  }
   .movie-list-move {
     transition: transform 1s;
   }
+  ul {
+    text-align: center;
+  }
   li {
     list-style: none;
-    float: left;
-    height: 240px;
+    display: inline-block;
+    margin: 0 9px;
+    width: 154px;
+    overflow: hidden;
+    
+    a {
+      color: #000;
+    }
+    
+    .image {
+      height: 231px;
+      overflow: hidden;
+    }
+    span {
+      text-align: left;
+      white-space: nowrap;
+    }
   }
 
   .movie-list-complete-item {
