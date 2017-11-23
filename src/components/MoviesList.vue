@@ -8,7 +8,7 @@
     Rating:
     <button @click="sort('vote_average')">ASC</button>
     <button @click="sort('vote_average', 'desc')">DESC</button>
-    <transition-group name="flip-list" tag="ul">
+    <transition-group name="movie-list" tag="ul">
       <li v-for="movie in movies" :key="movie.id">
         <router-link :to="{path: '/movie/' + movie.id}">
           {{ movie.title }}
@@ -71,12 +71,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .flip-list-move {
+  .movie-list-move {
     transition: transform 1s;
   }
   li {
     list-style: none;
     float: left;
     height: 240px;
+  }
+
+  .movie-list-complete-item {
+    transition: all 1s;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .movie-list-complete-enter, .movie-list-complete-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .movie-list-complete-leave-active {
+    position: absolute;
   }
 </style>
