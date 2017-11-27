@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <header>
-      <h1 id="logo">Movie Vue</h1>
+      <router-link to="/" id="logo">Movie Vue</router-link>
     </header>
     <div class="content">
-      <nav id="navigation">
+      <nav class="navigation">
         <ul>
-          <li><router-link to="/">Popular</router-link></li>
+          <li><router-link to="/popular">Popular</router-link></li>
           <li><router-link to="/top">Top Movies</router-link></li>
           <li><router-link to="/upcoming">Upcoming Movies</router-link></li>
           <li><router-link to="/now-playing">Now Playing</router-link></li>
@@ -29,11 +29,24 @@ export default {
     margin: 0;
     padding: 0;
   }
+  html {
+    min-height: 100%;
+  }
   body {
+    height: 100%;
+    margin: 0;
     background-image: linear-gradient(to bottom, #243949 0%, #517fa4 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  header {
+    margin-bottom: 10px;
   }
   #logo {
     color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    font-weight: bold;
   }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -48,7 +61,7 @@ export default {
       overflow: auto;
     }
   }
-  #navigation {
+  .navigation {
     background: #eee;
     height: 60px;
     

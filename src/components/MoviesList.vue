@@ -1,24 +1,21 @@
 <template>
-  <div class="title">
-    <h1>{{type}} Movies</h1>
-    <div class="options">
-      <button @click="shuffle">Shuffle</button>
-      Alphabetical:
-      <button @click="sort('title')">ASC</button>
-      <button @click="sort('title', 'desc')">DESC</button>
-      Rating:
-      <button @click="sort('vote_average')">ASC</button>
-      <button @click="sort('vote_average', 'desc')">DESC</button>
+  <div class="movie-list">
+    <div class="movies-list__bar">
+      <h1 class="movies-list__name">{{name}} Movies</h1>
+      <div class="movies-list__options">
+        <button class="movies-list__button movies-list__button--shuffle" @click="shuffle">Shuffle</button>
+        <label>Alphabetical:</label>
+        <button class="movies-list__button" @click="sort('title')">ASC</button>
+        <button class="movies-list__button" @click="sort('title', 'desc')">DESC</button>
+        <label>Rating:</label>
+        <button class="movies-list__button" @click="sort('vote_average')">ASC</button>
+        <button class="movies-list__button" @click="sort('vote_average', 'desc')">DESC</button>
+      </div>
     </div>
-    <transition-group name="movie-list" tag="ul">
-      <li v-for="movie in movies" :key="movie.id">
-        <router-link :to="{path: '/movie/' + movie.id}">
-          <div class="image">
-            <img :src="'https://image.tmdb.org/t/p/w154/' + movie.poster_path" alt="" />
-          </div>
-          <span class="name">{{ movie.title }}</span>
-        </router-link>
-      </li>
+    <transition-group class="movies-list__items" name="movies-list__items" tag="ul">
+      <template v-for="movie in movies">
+        <MovieItem :id="movie.id" :title="movie.title" :poster="movie.poster_path" :key="movie.id"></MovieItem>
+      </template>
     </transition-group>
   </div>
 </template>
@@ -27,15 +24,20 @@
 import axios from 'axios'
 import shuffle from 'lodash/shuffle'
 import sortBy from 'lodash/sortBy'
+import MovieItem from '@/components/MovieItem'
 export default {
   name: 'MoviesList',
-  props: ['type'],
+  props: ['type', 'name'],
 
   data () {
     return {
       movies: [],
       errors: []
     }
+  },
+
+  components: {
+    MovieItem
   },
 
   methods: {
@@ -75,49 +77,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    margin: 10px 20px;
-  }
-  .options {
-    
-  }
-  .movie-list-move {
-    transition: transform 1s;
-  }
-  ul {
-    text-align: center;
-  }
-  li {
-    list-style: none;
-    display: inline-block;
-    margin: 0 9px;
-    width: 154px;
-    overflow: hidden;
-    
-    a {
-      color: #000;
+  .movies-list {
+    &__name {
+      display: inline-block;
+      padding: 15px 27px;
     }
-    
-    .image {
-      height: 231px;
-      overflow: hidden;
+    &__options {
+      display: inline-block;
+      label {
+        margin-left: 20px;
+      }
     }
-    span {
-      text-align: left;
-      white-space: nowrap;
+    &__button {
+      padding: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+        background: #999;
+        color: #fff;
+      }
+      &--shuffle {
+        &:focus {
+          background: #fff;
+          color: #000;
+        }
+      }
     }
-  }
-
-  .movie-list-complete-item {
-    transition: all 1s;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  .movie-list-complete-enter, .movie-list-complete-leave-to {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  .movie-list-complete-leave-active {
-    position: absolute;
+    &__items {
+      text-align: center;
+      &-move {
+        transition: transform 1s;
+      }
+    }
   }
 </style>

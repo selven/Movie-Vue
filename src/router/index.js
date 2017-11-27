@@ -15,28 +15,32 @@ export default new Router({
       path: '/top',
       component: MoviesList,
       props: {
-        type: 'top_rated'
+        type: 'top_rated',
+        name: 'Top Rated'
       }
     },
     {
       path: '/popular',
       component: MoviesList,
       props: {
-        type: 'popular'
+        type: 'popular',
+        name: 'Popular'
       }
     },
     {
       path: '/upcoming',
       component: MoviesList,
       props: {
-        type: 'upcoming'
+        type: 'upcoming',
+        name: 'Upcoming'
       }
     },
     {
       path: '/now-playing',
       component: MoviesList,
       props: {
-        type: 'now_playing'
+        type: 'now_playing',
+        name: 'Now Playing'
       }
     },
     {
